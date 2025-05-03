@@ -9,6 +9,8 @@ builder.Services.ConfigureServices(builder.Configuration);
 
 var app = builder.Build();
 
+app.MapGet("/", () => "API is running.");
+
 app.ConfigureMiddlewares(app.Environment);
 
 app.UseHttpsRedirection();
