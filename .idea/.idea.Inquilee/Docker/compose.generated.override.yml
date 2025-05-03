@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  inquilee:
+    build:
+      context: "C:\\Users\\denno\\RiderProjects\\Inquilee"
+      dockerfile: "Inquilee/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/Inquilee.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "inquilee:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\denno\\RiderProjects\\Inquilee\\Inquilee:/app:rw"
+    - "C:\\Users\\denno\\RiderProjects\\Inquilee:/src:rw"
+    - "C:\\Users\\denno\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"

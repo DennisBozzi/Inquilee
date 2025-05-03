@@ -1,0 +1,7 @@
+﻿services:
+  inquilee:
+    image: inquilee
+    build:
+      context: .
+      dockerfile: Inquilee/Dockerfile
+

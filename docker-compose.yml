@@ -1,0 +1,29 @@
+﻿services:
+  db:
+    image: postgres:15
+    container_name: inquilee_db
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: Inquilee/Dockerfile
+    container_name: inquilee
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DB_CONNECTION_STRING=Host=db;Port=5432;Database=postgres;Username=docker;Password=docker
+
+volumes:
+  postgres_data: 
