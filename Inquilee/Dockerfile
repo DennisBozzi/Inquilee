@@ -15,12 +15,12 @@ RUN dotnet build "./Inquilee.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "/src/Inquilee/Inquilee.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Inquilee.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY ["wwwroot/css/swaggerDark.css", "wwwroot/css/swaggerDark.css"]
+COPY ["Inquilee/wwwroot/css/swaggerDark.css", "Inquilee/wwwroot/css/swaggerDark.css"]
 
 RUN if [ -f .env ]; then cp .env /app/.env; fi
 
