@@ -1,5 +1,7 @@
 using Inquilee.Configurations;
 using DotNetEnv;
+using Inquilee.Context;
+using Microsoft.EntityFrameworkCore;
 
 Env.Load();
 
@@ -10,6 +12,12 @@ builder.Services.ConfigureServices(builder.Configuration);
 var app = builder.Build();
 
 app.MapGet("/clientes", () => "API is running.");
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.Migrate();
+}
 
 app.ConfigureMiddlewares(app.Environment);
 

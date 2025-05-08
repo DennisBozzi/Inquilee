@@ -29,8 +29,7 @@ public static class ServiceConfiguration
                         .AllowAnyMethod();
                 });
         });
-
-
+        
         // services.AddAuthentication().AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
         // {
         //     options.Authority = firebaseValidIssuer;
@@ -40,12 +39,6 @@ public static class ServiceConfiguration
         //         ValidAudience = firebaseAudience,
         //     };
         // });
-
-        // using (var scope = services.CreateScope())
-        // {
-        //     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        //     dbContext.Database.Migrate();
-        // }
 
         services.AddControllers();
 
