@@ -4,7 +4,6 @@ public static class MiddlewareConfiguration
 {
     public static void ConfigureMiddlewares(this IApplicationBuilder app, IWebHostEnvironment env)
     {
-        
         if (env.IsDevelopment())
         {
             app.UseSwagger();
@@ -23,6 +22,5 @@ public static class MiddlewareConfiguration
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-        
     }
 }

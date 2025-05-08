@@ -1,4 +1,6 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Inquilee.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace Inquilee.Configurations;
 
@@ -6,14 +8,17 @@ public static class ServiceConfiguration
 {
     public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+        services.AddHttpClient<string>();
         
+        var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+        
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(connectionString));
+
         // services.AddScoped<IAuthInterface, AuthService>();
         // services.AddScoped<IProdutoInterface, ProdutoService>();
         // services.AddScoped<IVendaInterface, VendaService>();
-
-        services.AddHttpClient<string>();
-
+        
         services.AddCors(options =>
         {
             options.AddPolicy("AllowAllOrigins",
@@ -25,8 +30,6 @@ public static class ServiceConfiguration
                 });
         });
 
-        // services.AddDbContext<AppDbContext>(options =>
-        //     options.UseNpgsql(connectionString));
 
         // services.AddAuthentication().AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
         // {
@@ -37,7 +40,7 @@ public static class ServiceConfiguration
         //         ValidAudience = firebaseAudience,
         //     };
         // });
-        
+
         // using (var scope = services.CreateScope())
         // {
         //     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -70,11 +73,9 @@ public static class ServiceConfiguration
                             Id = "Bearer"
                         }
                     },
-                    new string[] { }
+                    []
                 }
             });
         });
-        
-        
     }
 }
